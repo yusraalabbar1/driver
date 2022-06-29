@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "763208220029",
+    "project_id": "chatdt-46ca1",
+    "storage_bucket": "chatdt-46ca1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763208220029:android:f474951c57634cc98d6014",
+        "android_client_info": {
+          "package_name": "com.express.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763208220029-finuadftptj8qpkk4t7f6j17grodi1rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0nb2wOdBjVvc3SeDGkI1GqBxcWonSlKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763208220029-finuadftptj8qpkk4t7f6j17grodi1rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
