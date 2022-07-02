@@ -5,6 +5,8 @@ import 'package:driver/view/pages/driver/chat_screen.dart';
 import 'package:driver/view/pages/driver/details.dart';
 import 'package:driver/view/pages/driver/home_page.dart';
 import 'package:driver/view/pages/driver/info.dart';
+import 'package:driver/view/pages/vendor/chat_vendor.dart';
+import 'package:driver/view/pages/vendor/details_order_vendor.dart';
 import 'package:driver/view/pages/vendor/order_vendor.dart';
 import 'package:driver/view/pages/welcom_home.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         "welcomHome": ((context) => welcomHome()),
         "loginVendor": ((context) => loginVendor()),
         "orderVendor": ((context) => orderVendor()),
+        "chatVendor": ((context) => chatVendor()),
+        "detailsOrderVendor": ((context) => detailsOrderVendor()),
       },
       locale: Locale('ar'),
     );

@@ -18,7 +18,7 @@ class _homePageState extends State<homePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // OrderApi();
+    OrderApi();
   }
 
   @override
@@ -61,11 +61,18 @@ class _homePageState extends State<homePage> {
                                       "https://thumbs.dreamstime.com/b/truth-icon-flat-truth-symbol-isolated-white-background-flat-vector-truth-icon-168806304.jpg"),
                                   fit: BoxFit.cover,
                                 )
-                              : DecorationImage(
-                                  image: NetworkImage(
-                                      "https://www.pngitem.com/pimgs/m/144-1441954_right-and-wrong-symbols-clipart-png-download-clear.png"),
-                                  fit: BoxFit.cover,
-                                ),
+                              : controller.allOrder[index]["status"] ==
+                                      "cancelled"
+                                  ? DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.pngitem.com/pimgs/m/144-1441954_right-and-wrong-symbols-clipart-png-download-clear.png"),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : DecorationImage(
+                                      image: NetworkImage(
+                                          "https://cdn.pecsaustralia.com/wp-content/uploads/2019/11/27165821/US_prod_Wait-Card_01.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
                           shape: BoxShape.circle,
                         ),
                       ),

@@ -25,7 +25,7 @@ class UpdateOrderModel {
   factory UpdateOrderModel.fromJson(Map<String, dynamic> json) =>
       UpdateOrderModel(
         status: json["status"],
-        code: json["code"],
+        code: json["code"].toString(),
         message: json["message"],
         data: json["data"] != null ? Data.fromJson(json["data"]) : null,
       );

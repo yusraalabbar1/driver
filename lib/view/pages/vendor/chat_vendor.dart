@@ -1,20 +1,19 @@
 import 'package:driver/controller/controllerDirver.dart';
 import 'package:driver/utilits/colors.dart';
-import 'package:driver/view/pages/welcom.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class chatVendor extends StatefulWidget {
+  chatVendor({Key? key}) : super(key: key);
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  State<chatVendor> createState() => _chatVendorState();
 }
 
 final _firstore = FirebaseFirestore.instance;
 
-class _ChatScreenState extends State<ChatScreen> {
+class _chatVendorState extends State<chatVendor> {
   String? messageText;
   final messageTextController = TextEditingController();
 
@@ -65,10 +64,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () {
                       messageTextController.clear();
                       _firstore.collection('express').add({
-                        'id': controller.detailsOrder["id"],
+                        'id': controller.detailsOrdervendor["id"],
                         'text': messageText,
-                        'sender': controller.detailsOrder["delivery"]["name"],
-                        'mobile': controller.detailsOrder["delivery"]["mobile"],
+                        'sender': controller.detailsOrdervendor["vendor"]
+                            ["name"],
+                        'mobile': controller.detailsOrdervendor["vendor"]
+                            ["mobile"],
                         'time': FieldValue.serverTimestamp()
                       });
                     },
@@ -108,7 +109,7 @@ class MessageStreamBuilder extends StatelessWidget {
           for (var message in messages) {
             //conition add messageWidgets if messageSender==same driver and same vendor
             if (message.get('id') ==
-                int.parse(controller.detailsOrder["id"].toString())) {
+                int.parse(controller.detailsOrdervendor["id"].toString())) {
               print("this is true user");
               final messageText = message.get('text');
               final messageSender = message.get('sender');
@@ -117,9 +118,9 @@ class MessageStreamBuilder extends StatelessWidget {
                   text: messageText,
                   sender: messageSender,
                   mobile: messageMobile,
-                  tovendor: controller.detailsOrder["vendor"]["mobile"],
+                  tovendor: controller.detailsOrdervendor["delivery"]["mobile"],
                   isMe: messageSender ==
-                      controller.detailsOrder["delivery"]["name"]);
+                      controller.detailsOrdervendor["vendor"]["name"]);
               messageWidgets.add(messageWidget);
             } else {
               print("not true");
@@ -161,21 +162,21 @@ class messageLine extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment:
-              isMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+              isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text('$mobile , $sender',
                 style: TextStyle(fontSize: 12, color: Colors.amber)),
             Material(
-                color: isMe ? MyColors.color2 : Colors.amber,
+                color: isMe ? Colors.amber : MyColors.color2,
                 elevation: 5,
                 borderRadius: isMe
                     ? BorderRadius.only(
-                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30),
                       )
                     : BorderRadius.only(
-                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30),
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30),
                       ),

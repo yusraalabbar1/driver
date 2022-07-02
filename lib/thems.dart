@@ -18,9 +18,10 @@ abstract class CustomTheme {
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.black),
           titleTextStyle: TextStyle(
-              color: MyColors.color4,
+              color: Colors.white,
               fontSize: 20,
-              fontWeight: FontWeight.bold),
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Almarai'),
         ),
         ///////////////////////////////////
 

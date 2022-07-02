@@ -1,6 +1,10 @@
 // To parse this JSON data, do
 //
 //     final welcome = welcomeFromJson(jsonString);
+//OrderModel
+// To parse this JSON data, do
+//
+//     final welcome = welcomeFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -49,6 +53,7 @@ class Datum {
     this.delivery,
     this.vendor,
     this.status,
+    this.notes,
   });
 
   int? id;
@@ -60,6 +65,7 @@ class Datum {
   Delivery? delivery;
   Delivery? vendor;
   String? status;
+  dynamic? notes;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -71,6 +77,7 @@ class Datum {
         delivery: Delivery.fromJson(json["delivery"]),
         vendor: Delivery.fromJson(json["vendor"]),
         status: json["status"],
+        notes: json["notes"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,6 +90,7 @@ class Datum {
         "delivery": delivery!.toJson(),
         "vendor": vendor!.toJson(),
         "status": status,
+        "notes": notes,
       };
 }
 

@@ -45,7 +45,7 @@ class _loginVendorState extends State<loginVendor> {
                     padding:
                         const EdgeInsets.only(left: 50, right: 50, bottom: 10),
                     child: Text(
-                      "Login".tr,
+                      "تسجيل الدخول".tr,
                       style: Theme.of(context).textTheme.headline1,
                     ),
                   ),
@@ -53,7 +53,7 @@ class _loginVendorState extends State<loginVendor> {
                     padding:
                         const EdgeInsets.only(left: 50, right: 50, bottom: 10),
                     child: Text(
-                      "Mobile Number".tr,
+                      "رقم الموبايل".tr,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
@@ -95,7 +95,7 @@ class _loginVendorState extends State<loginVendor> {
                     padding:
                         const EdgeInsets.only(left: 50, right: 50, bottom: 10),
                     child: Text(
-                      "Password".tr,
+                      "كلمة المرور".tr,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
@@ -200,7 +200,7 @@ class _loginVendorState extends State<loginVendor> {
                           }
                         },
                         child: Text(
-                          "Login".tr,
+                          "تسجيل الدخول".tr,
                           style: TextStyle(
                               fontSize: 13,
                               color: MyColors.color3,

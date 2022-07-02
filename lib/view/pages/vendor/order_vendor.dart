@@ -1,4 +1,6 @@
 import 'package:driver/controller/controllerDirver.dart';
+import 'package:driver/model/api/driver/d_detailsOrderApi.dart';
+import 'package:driver/model/api/vendor/v_detailsApi.dart';
 import 'package:driver/utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,7 +34,9 @@ class _orderVendorState extends State<orderVendor> {
             return InkWell(
               onTap: () async {
                 // await detailsOrderApi(controller.allOrderVendor[index]["id"]);
-                Navigator.of(context).pushNamed("details");
+                await detailsVendorOrderApi(
+                    controller.allOrderVendor[index]["id"]);
+                Navigator.of(context).pushNamed("detailsOrderVendor");
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -59,11 +63,18 @@ class _orderVendorState extends State<orderVendor> {
                                       "https://thumbs.dreamstime.com/b/truth-icon-flat-truth-symbol-isolated-white-background-flat-vector-truth-icon-168806304.jpg"),
                                   fit: BoxFit.cover,
                                 )
-                              : DecorationImage(
-                                  image: NetworkImage(
-                                      "https://www.pngitem.com/pimgs/m/144-1441954_right-and-wrong-symbols-clipart-png-download-clear.png"),
-                                  fit: BoxFit.cover,
-                                ),
+                              : controller.allOrderVendor[index]["status"] ==
+                                      "cancelled"
+                                  ? DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.pngitem.com/pimgs/m/144-1441954_right-and-wrong-symbols-clipart-png-download-clear.png"),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : DecorationImage(
+                                      image: NetworkImage(
+                                          "https://cdn.pecsaustralia.com/wp-content/uploads/2019/11/27165821/US_prod_Wait-Card_01.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
                           shape: BoxShape.circle,
                         ),
                       ),

@@ -5,6 +5,7 @@ class controllerProduct extends GetxController {
   List<Map<dynamic, dynamic>> allOrder = [];
   List<Map<dynamic, dynamic>> allOrderVendor = [];
   Map<dynamic, dynamic> detailsOrder = {};
+  Map<dynamic, dynamic> detailsOrdervendor = {};
   SaveProfileaccessToken(v) {
     saveProfileaccessToken = v;
     update();
@@ -17,6 +18,11 @@ class controllerProduct extends GetxController {
 
   SavedetailsOrder(v) {
     detailsOrder = v;
+    update();
+  }
+
+  SavedVendoretailsOrder(v) {
+    detailsOrdervendor = v;
     update();
   }
 

@@ -3,14 +3,14 @@ import 'package:driver/utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class info extends StatefulWidget {
-  info({Key? key}) : super(key: key);
+class detailsOrderVendor extends StatefulWidget {
+  detailsOrderVendor({Key? key}) : super(key: key);
 
   @override
-  State<info> createState() => _infoState();
+  State<detailsOrderVendor> createState() => _detailsOrderVendorState();
 }
 
-class _infoState extends State<info> {
+class _detailsOrderVendorState extends State<detailsOrderVendor> {
   controllerProduct controller = Get.put(controllerProduct());
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _infoState extends State<info> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrder["user_address"],
+                  Text(controller.detailsOrdervendor["user_address"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -66,7 +66,7 @@ class _infoState extends State<info> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrder["user_mobile"],
+                  Text(controller.detailsOrdervendor["user_mobile"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -88,7 +88,7 @@ class _infoState extends State<info> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrder["code"],
+                  Text(controller.detailsOrdervendor["code"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -110,7 +110,7 @@ class _infoState extends State<info> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrder["total"].toString(),
+                  Text(controller.detailsOrdervendor["total"].toString(),
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -133,14 +133,39 @@ class _infoState extends State<info> {
                     width: 5,
                   ),
                   Text(
-                      controller.detailsOrder["notes"] == null
+                      controller.detailsOrdervendor["notes"] == null
                           ? "لم تضف أي ملاحظة"
-                          : controller.detailsOrder["notes"],
+                          : controller.detailsOrdervendor["notes"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
                           fontFamily: 'Almarai')),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 60,
+            ),
+            Container(
+              width: double.infinity,
+              height: 55,
+              margin: EdgeInsets.only(bottom: 10, right: 30, left: 30, top: 10),
+              child: RaisedButton(
+                color: MyColors.color2,
+                elevation: 10,
+                splashColor: MyColors.color1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    side: BorderSide(color: MyColors.color2, width: 2)),
+                onPressed: () {
+                  print("ontap");
+                  Navigator.of(context).pushNamed("chatVendor");
+                },
+                child: Text(
+                  "ابدأ المحادثة",
+                  style: TextStyle(
+                      fontSize: 15, color: Colors.white, fontFamily: 'Almarai'),
+                ),
               ),
             ),
           ],

@@ -2,6 +2,10 @@
 // To parse this JSON data, do
 //
 //     final welcome = welcomeFromJson(jsonString);
+//detailsOrderModel
+// To parse this JSON data, do
+//
+//     final welcome = welcomeFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -50,6 +54,7 @@ class Data {
     this.delivery,
     this.vendor,
     this.status,
+    this.notes,
   });
 
   int? id;
@@ -61,6 +66,7 @@ class Data {
   Delivery? delivery;
   Delivery? vendor;
   String? status;
+  dynamic? notes;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -72,6 +78,7 @@ class Data {
         delivery: Delivery.fromJson(json["delivery"]),
         vendor: Delivery.fromJson(json["vendor"]),
         status: json["status"],
+        notes: json["notes"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -84,6 +91,7 @@ class Data {
         "delivery": delivery!.toJson(),
         "vendor": vendor!.toJson(),
         "status": status,
+        "notes": notes,
       };
 }
 
