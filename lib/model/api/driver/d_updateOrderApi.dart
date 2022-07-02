@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:driver/controller/controllerDirver.dart';
+import 'package:driver/model/api/driver/d_orderApi.dart';
 import 'package:driver/model/json/driver/d_orderModel.dart';
 import 'package:driver/model/json/driver/d_updateOrderModel.dart';
 import 'package:driver/utilits/colors.dart';
@@ -56,6 +57,7 @@ UpdateOrderApi(context, id, status, notes) async {
               dialogBackgroundColor: MyColors.color3,
               btnOkColor: MyColors.color1)
           .show();
+      await OrderApi();
     } else {
       print(c.message);
       AwesomeDialog(
