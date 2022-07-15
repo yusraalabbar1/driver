@@ -1,5 +1,5 @@
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/utilits/colors.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +23,9 @@ class _chatVendorState extends State<chatVendor> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.color2,
-        title: Text('MessageMe'),
+        title: Text('محادثتي',
+            style: TextStyle(
+                color: Colors.white, fontSize: 16, fontFamily: 'Almarai')),
       ),
       body: SafeArea(
         child: Column(
@@ -50,13 +52,19 @@ class _chatVendorState extends State<chatVendor> {
                       onChanged: (value) {
                         messageText = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: MyColors.color3,
+
+                        // hoverColor: Colors.white,
+                        filled: true,
+                        disabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 20,
                         ),
-                        hintText: 'Write your message here...',
-                        border: InputBorder.none,
+                        hintText: 'اكتب الرسالة هنا',
                       ),
                     ),
                   ),
@@ -74,14 +82,15 @@ class _chatVendorState extends State<chatVendor> {
                       });
                     },
                     child: Text(
-                      'send',
+                      'ارسال',
                       style: TextStyle(
                         color: Colors.blue[800],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontFamily: 'Almarai',
+                        fontSize: 13,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

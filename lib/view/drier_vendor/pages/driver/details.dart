@@ -1,9 +1,12 @@
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/model/api/driver/d_orderApi.dart';
-import 'package:driver/model/api/driver/d_updateOrderApi.dart';
-import 'package:driver/utilits/colors.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/model/api/driver/d_orderApi.dart';
+import 'package:express/model/api/driver/d_updateOrderApi.dart';
+import 'package:express/utilits/colors.dart';
+import 'package:express/view/drier_vendor/pages/driver/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class details extends StatefulWidget {
   details({Key? key}) : super(key: key);
@@ -83,12 +86,19 @@ class _detailsState extends State<details> {
                       c1 = 0;
                       c2 = 1;
                       c3 = 0;
+                      firstore.collection('express').add({
+                        'id': controller.detailsOrder["id"],
+                        'text': "مؤجل",
+                        'sender': controller.detailsOrder["delivery"]["name"],
+                        'mobile': controller.detailsOrder["delivery"]["mobile"],
+                        'time': FieldValue.serverTimestamp()
+                      });
                     });
                     stat = "pending";
                     print(stat);
                   },
                   child: Text(
-                    "موجل",
+                    "مؤجل",
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.white,
@@ -126,36 +136,36 @@ class _detailsState extends State<details> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              " اختر اختصارات التبليغ",
-              style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Almarai'),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              circuler("مفصول", cc1 = 1),
-              circuler("مغلق", cc2 = 1),
-              circuler("لارد", cc3 = 1),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              circuler("تعديل قيمة", notes == "تعديل قيمة"),
-              circuler("رفض وعدم دفع توصيل", notes == "رفض وعدم دفع توصيل"),
-              circuler("رفض ودفع توصيل", notes == "رفض ودفع توصيل"),
-            ],
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(15.0),
+          //   child: Text(
+          //     " اختر اختصارات التبليغ",
+          //     style: TextStyle(
+          //         fontSize: 17,
+          //         color: Colors.grey,
+          //         fontWeight: FontWeight.bold,
+          //         fontFamily: 'Almarai'),
+          //   ),
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     circuler("مفصول", cc1 = 1),
+          //     circuler("مغلق", cc2 = 1),
+          //     circuler("لارد", cc3 = 1),
+          //   ],
+          // ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     circuler("تعديل قيمة", notes == "تعديل قيمة"),
+          //     circuler("رفض وعدم دفع توصيل", notes == "رفض وعدم دفع توصيل"),
+          //     circuler("رفض ودفع توصيل", notes == "رفض ودفع توصيل"),
+          //   ],
+          // ),
           SizedBox(
             height: 30,
           ),
@@ -179,7 +189,7 @@ class _detailsState extends State<details> {
                 await OrderApi();
               },
               child: Text(
-                "التعديل على حالة واختصار الطلب",
+                "التعديل على حالة الطلب",
                 style: TextStyle(
                     fontSize: 15, color: Colors.white, fontFamily: 'Almarai'),
               ),
@@ -207,6 +217,45 @@ class _detailsState extends State<details> {
               ),
             ),
           ),
+          Container(
+              child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  " اختر اختصارات التبليغ",
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Almarai'),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  circuler("مفصول", cc1 = 1),
+                  circuler("مغلق", cc2 = 1),
+                  circuler("رفض ودفع توصيل", notes == "رفض ودفع توصيل"),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  circuler("تعديل قيمة", notes == "تعديل قيمة"),
+                  circuler("رفض وعدم دفع توصيل", notes == "رفض وعدم دفع توصيل"),
+                  circuler("لارد", cc3 = 1),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          )),
+
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(
@@ -246,18 +295,33 @@ class _detailsState extends State<details> {
   }
 
   Widget circuler(text, ontap) {
-    return InkWell(
-      onTap: () {
-        // ontap;
-        notes = text;
-        print(notes);
-      },
-      child: CircleAvatar(
-        backgroundColor: Color.fromARGB(255, 45, 183, 198),
-        radius: 45,
-        child: Text(text,
-            style: TextStyle(
-                fontSize: 13, color: Colors.white, fontFamily: 'Almarai')),
+    return Container(
+      height: 55,
+      child: RaisedButton(
+        color: Colors.orange,
+        elevation: 10,
+        splashColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+            side: BorderSide(color: Colors.orange, width: 2)),
+        onPressed: () {
+          // Navigator.of(context).pushNamed("info");
+          setState(() {
+            notes = text;
+            firstore.collection('express').add({
+              'id': controller.detailsOrder["id"],
+              'text': notes,
+              'sender': controller.detailsOrder["delivery"]["name"],
+              'mobile': controller.detailsOrder["delivery"]["mobile"],
+              'time': FieldValue.serverTimestamp()
+            });
+          });
+        },
+        child: Text(
+          text,
+          style: TextStyle(
+              fontSize: 13, color: Colors.white, fontFamily: 'Almarai'),
+        ),
       ),
     );
   }

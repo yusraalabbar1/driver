@@ -1,16 +1,16 @@
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/utilits/colors.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class detailsOrderVendor extends StatefulWidget {
-  detailsOrderVendor({Key? key}) : super(key: key);
+class info extends StatefulWidget {
+  info({Key? key}) : super(key: key);
 
   @override
-  State<detailsOrderVendor> createState() => _detailsOrderVendorState();
+  State<info> createState() => _infoState();
 }
 
-class _detailsOrderVendorState extends State<detailsOrderVendor> {
+class _infoState extends State<info> {
   controllerProduct controller = Get.put(controllerProduct());
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _detailsOrderVendorState extends State<detailsOrderVendor> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrdervendor["user_address"],
+                  Text(controller.detailsOrder["user_address"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -66,7 +66,7 @@ class _detailsOrderVendorState extends State<detailsOrderVendor> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrdervendor["user_mobile"],
+                  Text(controller.detailsOrder["user_mobile"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -88,7 +88,7 @@ class _detailsOrderVendorState extends State<detailsOrderVendor> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrdervendor["code"],
+                  Text(controller.detailsOrder["code"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -110,7 +110,7 @@ class _detailsOrderVendorState extends State<detailsOrderVendor> {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(controller.detailsOrdervendor["total"].toString(),
+                  Text(controller.detailsOrder["total"].toString(),
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -133,39 +133,14 @@ class _detailsOrderVendorState extends State<detailsOrderVendor> {
                     width: 5,
                   ),
                   Text(
-                      controller.detailsOrdervendor["notes"] == null
+                      controller.detailsOrder["notes"] == null
                           ? "لم تضف أي ملاحظة"
-                          : controller.detailsOrdervendor["notes"],
+                          : controller.detailsOrder["notes"],
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
                           fontFamily: 'Almarai')),
                 ],
-              ),
-            ),
-            SizedBox(
-              height: 60,
-            ),
-            Container(
-              width: double.infinity,
-              height: 55,
-              margin: EdgeInsets.only(bottom: 10, right: 30, left: 30, top: 10),
-              child: RaisedButton(
-                color: MyColors.color2,
-                elevation: 10,
-                splashColor: MyColors.color1,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    side: BorderSide(color: MyColors.color2, width: 2)),
-                onPressed: () {
-                  print("ontap");
-                  Navigator.of(context).pushNamed("chatVendor");
-                },
-                child: Text(
-                  "ابدأ المحادثة",
-                  style: TextStyle(
-                      fontSize: 15, color: Colors.white, fontFamily: 'Almarai'),
-                ),
               ),
             ),
           ],

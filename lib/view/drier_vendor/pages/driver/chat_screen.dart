@@ -1,6 +1,5 @@
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/utilits/colors.dart';
-import 'package:driver/view/pages/welcom.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/utilits/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -12,9 +11,44 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-final _firstore = FirebaseFirestore.instance;
+final firstore = FirebaseFirestore.instance;
 
 class _ChatScreenState extends State<ChatScreen> {
+  var notes = "";
+  var c1, c2, c3, cc1, cc2, cc3;
+  // Widget circuler(text, ontap) {
+  //   return Container(
+  //     height: 55,
+  //     child: RaisedButton(
+  //       color: c2 == 1 ? MyColors.color1 : Colors.orange,
+  //       elevation: 10,
+  //       splashColor: Colors.orange,
+  //       shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(25),
+  //           side: BorderSide(color: Colors.orange, width: 2)),
+  //       onPressed: () {
+  //         // Navigator.of(context).pushNamed("info");
+  //         setState(() {
+  //           notes = text;
+  //           print(notes);
+  //           firstore.collection('express').add({
+  //             'id': controller.detailsOrder["id"],
+  //             'text': notes,
+  //             'sender': controller.detailsOrder["delivery"]["name"],
+  //             'mobile': controller.detailsOrder["delivery"]["mobile"],
+  //             'time': FieldValue.serverTimestamp()
+  //           });
+  //         });
+  //       },
+  //       child: Text(
+  //         text,
+  //         style: TextStyle(
+  //             fontSize: 15, color: Colors.white, fontFamily: 'Almarai'),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   String? messageText;
   final messageTextController = TextEditingController();
 
@@ -24,7 +58,9 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.color2,
-        title: Text('MessageMe'),
+        title: Text('محادثتي',
+            style: TextStyle(
+                color: Colors.white, fontSize: 16, fontFamily: 'Almarai')),
       ),
       body: SafeArea(
         child: Column(
@@ -32,7 +68,46 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             MessageStreamBuilder(),
-            Container(),
+            // Container(
+            //     child: Column(
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.all(15.0),
+            //       child: Text(
+            //         " اختر اختصارات التبليغ",
+            //         style: TextStyle(
+            //             fontSize: 17,
+            //             color: Colors.grey,
+            //             fontWeight: FontWeight.bold,
+            //             fontFamily: 'Almarai'),
+            //       ),
+            //     ),
+            //     Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: [
+
+            //         circuler("مفصول", cc1 = 1),
+            //         circuler("مغلق", cc2 = 1),
+            //         circuler("رفض ودفع توصيل", notes == "رفض ودفع توصيل"),
+            //       ],
+            //     ),
+            //     SizedBox(
+            //       height: 10,
+            //     ),
+            //     Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: [
+            //         circuler("تعديل قيمة", notes == "تعديل قيمة"),
+            //         circuler(
+            //             "رفض وعدم دفع توصيل", notes == "رفض وعدم دفع توصيل"),
+            //         circuler("لارد", cc3 = 1),
+            //       ],
+            //     ),
+            //     SizedBox(
+            //       height: 10,
+            //     ),
+            //   ],
+            // )),
             Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -51,20 +126,26 @@ class _ChatScreenState extends State<ChatScreen> {
                       onChanged: (value) {
                         messageText = value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: MyColors.color3,
+
+                        // hoverColor: Colors.white,
+                        filled: true,
+                        disabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 20,
                         ),
-                        hintText: 'Write your message here...',
-                        border: InputBorder.none,
+                        hintText: 'اكتب الرسالة هنا',
                       ),
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       messageTextController.clear();
-                      _firstore.collection('express').add({
+                      firstore.collection('express').add({
                         'id': controller.detailsOrder["id"],
                         'text': messageText,
                         'sender': controller.detailsOrder["delivery"]["name"],
@@ -73,14 +154,15 @@ class _ChatScreenState extends State<ChatScreen> {
                       });
                     },
                     child: Text(
-                      'send',
+                      'ارسال',
                       style: TextStyle(
                         color: Colors.blue[800],
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontFamily: 'Almarai',
+                        fontSize: 13,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -98,7 +180,7 @@ class MessageStreamBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firstore.collection('express').orderBy('time').snapshots(),
+      stream: firstore.collection('express').orderBy('time').snapshots(),
       // initialData: initialData,
       builder: (context, snapshot) {
         List<messageLine> messageWidgets = [];

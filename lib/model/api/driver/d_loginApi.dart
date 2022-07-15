@@ -1,16 +1,45 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/model/json/driver/d_loginModel.dart';
-import 'package:driver/utilits/colors.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/model/json/driver/d_loginModel.dart';
+import 'package:express/utilits/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter/services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+import 'package:device_info/device_info.dart';
+
 loginApi(context, mobile, pass) async {
+  var identifier;
+  final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+  try {
+    if (Platform.isAndroid) {
+      var build = await deviceInfoPlugin.androidInfo;
+      identifier = build.androidId; //UUID for Android
+
+      print("*********androidId********");
+      print(identifier);
+      print("*********identifier********");
+    } else if (Platform.isIOS) {
+      var data = await deviceInfoPlugin.iosInfo;
+      identifier = data.identifierForVendor; //UUID for iOS
+
+      print("*********isIOS********");
+      print(identifier);
+      print("*********identifier********");
+    }
+  } on PlatformException {
+    print('Failed to get platform version');
+  }
+
+  String? fcm_token = await FirebaseMessaging.instance.getToken();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   controllerProduct controller = Get.put(controllerProduct());
   var headers = {'Accept': 'application/json'};
@@ -21,9 +50,8 @@ loginApi(context, mobile, pass) async {
   request.fields.addAll({
     'mobile': mobile,
     'password': pass,
-    'fcm_token':
-        'ecK0peukQAWaCTUv1k0NGe:APA91bEo5mfq9Vdrj5-PA5KPabn0cEhHQh0-SyVq-rU4fPR_NYwhWFfxrVdKUMEadJGkmVH-a9LVvhlkfkaEdRmJuFT_-5cCK4A96Wx6-p-PZWyhJPxkBfftCDYbqLbJNKUGjjjXrXAr',
-    'device_type': 'android'
+    'fcm_token': fcm_token.toString(),
+    'device_type': identifier
   });
 
   request.headers.addAll(headers);
@@ -37,17 +65,6 @@ loginApi(context, mobile, pass) async {
     if (c.code == "200") {
       print(c.message);
       ///////////////////////////////////////////////
-      // preferences.setString("name", c.data!.user!.name.toString());
-      // controller.SaveProfileName(preferences.getString('name'));
-      // preferences.setString("mobile", c.data!.user!.mobile.toString());
-      // controller.SaveProfilemobile(preferences.getString('mobile'));
-      // preferences.setString(
-      //     "photoProfile", c.data!.user!.photoProfile.toString());
-      // controller.SaveProfilephotoProfile(preferences.getString('photoProfile'));
-      // preferences.setString("city", c.data!.user!.city.toString());
-      // controller.SaveProfiledefaultAddress(preferences.getString('city'));
-      // preferences.setString("area", c.data!.user!.area.toString());
-      // controller.SaveProfiledefaultAddressarea(preferences.getString('area'));
       preferences.setString(
           "accessTokenDriver", c.data!.user!.accessToken.toString());
       controller.SaveProfileaccessToken(

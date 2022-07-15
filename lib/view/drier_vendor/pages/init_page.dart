@@ -1,17 +1,15 @@
-import 'package:driver/utilits/colors.dart';
-import 'package:driver/view/widget_style/style_main.dart';
+import 'package:express/utilits/colors.dart';
+import 'package:express/view/widget_style/style_main.dart';
 import 'package:flutter/material.dart';
 
-class welcom extends StatefulWidget {
-  welcom({Key? key}) : super(key: key);
+class init extends StatefulWidget {
+  init({Key? key}) : super(key: key);
 
   @override
-  State<welcom> createState() => _welcomState();
+  State<init> createState() => _initState();
 }
 
-var sendMen;
-
-class _welcomState extends State<welcom> with AutomaticKeepAliveClientMixin {
+class _initState extends State<init> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   Future<bool> _onwillPop() async {
@@ -87,7 +85,7 @@ class _welcomState extends State<welcom> with AutomaticKeepAliveClientMixin {
                   Container(
                     margin: const EdgeInsets.only(bottom: 40),
                     child: const Text(
-                      "تطبيق السائق والتاجر",
+                      "هيا لنبدأ",
                       style: TextStyle(
                           fontSize: 17,
                           color: Colors.grey,
@@ -95,64 +93,28 @@ class _welcomState extends State<welcom> with AutomaticKeepAliveClientMixin {
                           fontFamily: 'Almarai'),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 55,
-                        margin: EdgeInsets.only(
-                            bottom: 10, right: 30, left: 30, top: 10),
-                        child: RaisedButton(
-                          color: MyColors.color1,
-                          elevation: 10,
-                          splashColor: MyColors.color1,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              side:
-                                  BorderSide(color: MyColors.color1, width: 2)),
-                          onPressed: () {
-                            setState(() {
-                              sendMen = "driver";
-                            });
-                            Navigator.of(context).pushNamed("login");
-                          },
-                          child: Text(
-                            "سائق",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: MyColors.color3,
-                                fontFamily: 'Almarai'),
-                          ),
-                        ),
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(
+                        bottom: 10, right: 30, left: 30, top: 10),
+                    child: RaisedButton(
+                      color: MyColors.color1,
+                      elevation: 10,
+                      splashColor: MyColors.color1,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          side: BorderSide(color: MyColors.color1, width: 2)),
+                      onPressed: () async {
+                        Navigator.of(context).pushNamed("welcom");
+                      },
+                      child: Text(
+                        "ابدأ",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: MyColors.color3,
+                            fontFamily: 'Almarai'),
                       ),
-                      Container(
-                        height: 55,
-                        margin: EdgeInsets.only(
-                            bottom: 10, right: 30, left: 30, top: 10),
-                        child: RaisedButton(
-                          color: MyColors.color1,
-                          elevation: 10,
-                          splashColor: MyColors.color1,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              side:
-                                  BorderSide(color: MyColors.color1, width: 2)),
-                          onPressed: () {
-                            setState(() {
-                              sendMen = "vendor";
-                            });
-                            Navigator.of(context).pushNamed("loginVendor");
-                          },
-                          child: Text(
-                            "تاجر",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: MyColors.color3,
-                                fontFamily: 'Almarai'),
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   )
                 ],
               ) /* add child content here */,

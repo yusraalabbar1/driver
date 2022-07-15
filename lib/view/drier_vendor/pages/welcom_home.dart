@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/model/api/driver/d_orderApi.dart';
-import 'package:driver/model/api/vendor/v_orderApi.dart';
-import 'package:driver/utilits/colors.dart';
-import 'package:driver/view/pages/welcom.dart';
-import 'package:driver/view/widget_style/style_main.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/model/api/driver/d_orderApi.dart';
+import 'package:express/model/api/vendor/v_orderApi.dart';
+import 'package:express/utilits/colors.dart';
+import 'package:express/view/widget_style/style_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,11 +21,14 @@ class _welcomHomeState extends State<welcomHome>
   getInfo() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     controllerProduct controller = Get.put(controllerProduct());
-    if (sendMen == "driver") {
+    String? men = preferences.getString('sendMen');
+    if (men == "driver") {
+      print("driverrrrrrr");
       controller.SaveProfileaccessToken(
           preferences.getString('accessTokenDriver'));
       await OrderApi();
     } else {
+      print("vendorrrrrrrrr");
       controller.SaveProfileaccessToken(
           preferences.getString('accessTokenVendor'));
       await OrderApiVendor();
@@ -44,8 +46,11 @@ class _welcomHomeState extends State<welcomHome>
     searchOnStoppedTyping = new Timer(duration, () => navigateHome());
   }
 
-  navigateHome() {
-    if (sendMen == "driver") {
+  navigateHome() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    controllerProduct controller = Get.put(controllerProduct());
+    String? men = preferences.getString('sendMen');
+    if (men == "driver") {
       Navigator.of(context).pushReplacementNamed("homePage");
     } else {
       Navigator.of(context).pushReplacementNamed("orderVendor");

@@ -1,17 +1,17 @@
-import 'package:driver/model/api/vendor/v_loginApi.dart';
-import 'package:driver/utilits/colors.dart';
-import 'package:driver/view/widget_style/style_main.dart';
+import 'package:express/model/api/driver/d_loginApi.dart';
+import 'package:express/utilits/colors.dart';
+import 'package:express/view/widget_style/style_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class loginVendor extends StatefulWidget {
-  loginVendor({Key? key}) : super(key: key);
+class login extends StatefulWidget {
+  login({Key? key}) : super(key: key);
 
   @override
-  State<loginVendor> createState() => _loginVendorState();
+  State<login> createState() => _loginState();
 }
 
-class _loginVendorState extends State<loginVendor> {
+class _loginState extends State<login> {
   var mobileNumber;
   var password;
   bool _isObscure = true;
@@ -174,6 +174,7 @@ class _loginVendorState extends State<loginVendor> {
                   //     },
                   //   ),
                   // ),
+
                   Center(
                     child: Container(
                       width: double.infinity,
@@ -196,7 +197,7 @@ class _loginVendorState extends State<loginVendor> {
                             print(mobileNumber);
                             print(password);
                             print("========================");
-                            VendorloginApi(context, mobileNumber, password);
+                            loginApi(context, mobileNumber, password);
                           }
                         },
                         child: Text(

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:driver/controller/controllerDirver.dart';
-import 'package:driver/model/api/driver/d_orderApi.dart';
-import 'package:driver/model/json/driver/d_orderModel.dart';
-import 'package:driver/model/json/driver/d_updateOrderModel.dart';
-import 'package:driver/utilits/colors.dart';
+import 'package:express/controller/controllerDirver.dart';
+import 'package:express/model/api/driver/d_orderApi.dart';
+import 'package:express/model/json/driver/d_orderModel.dart';
+import 'package:express/model/json/driver/d_updateOrderModel.dart';
+import 'package:express/utilits/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -44,6 +44,7 @@ UpdateOrderApi(context, id, status, notes) async {
     // print(await response.stream.bytesToString());
     if (c.status == true) {
       print(c.message);
+      print("===========1============");
       AwesomeDialog(
               context: context,
               animType: AnimType.RIGHSLIDE,
@@ -59,6 +60,7 @@ UpdateOrderApi(context, id, status, notes) async {
           .show();
       await OrderApi();
     } else {
+      print("==========2=============");
       print(c.message);
       AwesomeDialog(
               context: context,
@@ -76,5 +78,18 @@ UpdateOrderApi(context, id, status, notes) async {
     }
   } else {
     // print(response.reasonPhrase);
+    AwesomeDialog(
+            context: context,
+            animType: AnimType.RIGHSLIDE,
+            headerAnimationLoop: true,
+            btnOkOnPress: () {},
+            body: Text(c.message.toString(),
+                style: TextStyle(
+                    color: MyColors.color2,
+                    fontSize: 14,
+                    fontFamily: 'Almarai')),
+            dialogBackgroundColor: MyColors.color3,
+            btnOkColor: MyColors.color1)
+        .show();
   }
 }
